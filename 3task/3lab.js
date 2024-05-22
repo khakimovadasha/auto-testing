@@ -43,8 +43,8 @@ class LaptopsPage {
             firstFiveLaptops: By.xpath("//h3[@data-auto='snippet-title']"),
             addToCartButton: By.xpath("//div[@data-zone-name='cartButton']"),
             cartButton: By.xpath("//a[contains(@href, '/my/cart')]"),
-            searchInput: By.xpath("//input[@id='header-search']"), // Указать правильный селектор для поисковой строки
-            searchButton: By.xpath("//button[@type='submit']") // Указать правильный селектор для кнопки поиска
+            searchInput: By.xpath("//input[@id='header-search']"), 
+            searchButton: By.xpath("//button[@type='submit']") 
         };
         this.variables = {
             nameLaptops: [],
@@ -95,7 +95,7 @@ class LaptopsPage {
     async addSecondLaptopToCart() {
     let laptops = await this.driver.findElements(this.locator.firstFiveLaptops);
     if (laptops.length > 1) {
-        let cartButton = await laptops[1].findElement(By.xpath(".//ancestor::article//div[@data-zone-name='cartButton']//button"));
+        let cartButton = await laptops[1].findElement(By.xpath(".//ancestor::li//div[@data-zone-name='cartButton']//button"));
 
         await cartButton.click();
         console.log('✔️ Второй товар добавлен в корзину');
@@ -108,7 +108,7 @@ class LaptopsPage {
         await this.driver.findElement(this.locator.cartButton).click();
         console.log('✔️ Переход в корзину выполнен');
         await this.driver.sleep(3000);
-        let cartItems = await this.driver.findElements(By.xpath("//a[contains(@title, '" + this.variables.secondLaptopName + "')]"));
+        let cartItems = await this.driver.findElements(By.xpath("//article//h3[contains(., his.variables.secondLaptopName )]"    ));
         assert(cartItems.length > 0, 'Товар не найден в корзине');
         console.log('✔️ Товар верифицирован в корзине');
     }
@@ -121,7 +121,7 @@ class LaptopsPage {
     }
 
     async removeProductFromCart() {
-        let removeButton = await this.driver.findElement(By.xpath("//div[@data-auto='remove-button']//button"));
+        let removeButton = await this.driver.findElement(By.xpath("//div[@data-baobab-name='remove']//button"));
         await removeButton.click();
         console.log('✔️ Товар удален из корзины');
         await this.driver.sleep(2000);
@@ -129,7 +129,7 @@ class LaptopsPage {
 }
 
 describe('Тестирование корзины Яндекс.Маркет', function () {
-    this.timeout(100000); // Установка большего времени ожидания для теста
+    this.timeout(100000); 
     let mainPage = new MainPage(driver);
     let laptopsPage = new LaptopsPage(driver);
 
