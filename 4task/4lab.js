@@ -1,5 +1,6 @@
 const { Builder, By, Key, until, Browser } = require('selenium-webdriver');
 require('selenium-webdriver/edge');
+const assert = require('assert');
 
 const BrowserType = Browser.EDGE;
 
